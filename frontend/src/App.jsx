@@ -16,6 +16,7 @@ import { usePageError } from './hooks/usePageError.js';
 import { ProfilePage } from './pages/ProfilePage.jsx';
 import { ResetPassword } from './pages/ResetPassword.jsx';
 import { SetNewPasswordPage } from './pages/SetNewPasswordPage.jsx';
+import { NotFoundPage } from './pages/NotFoundPage.jsx';
 
 function App() {
   const navigate = useNavigate();
@@ -107,6 +108,8 @@ function App() {
             <Route path="/" element={<RequireAuth />}>
               <Route path="profile/:userId" element={<ProfilePage />} />
             </Route>
+
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </section>
 

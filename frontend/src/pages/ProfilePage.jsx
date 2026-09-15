@@ -45,7 +45,7 @@ export const ProfilePage = () => {
           className="button is-small is-link mt-2"
           onClick={() => setChange('name')}
         >
-          Edit Name
+          Change Name
         </button>
       </div>
 
@@ -58,7 +58,7 @@ export const ProfilePage = () => {
           className="button is-small is-link mt-2"
           onClick={() => setChange('email')}
         >
-          Edit Email
+          Change Email
         </button>
       </div>
 

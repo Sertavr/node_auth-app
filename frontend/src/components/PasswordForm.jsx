@@ -12,6 +12,7 @@ export const PasswordForm = ({ onSuccess }) => {
       <h3 className="subtitle">Change Password</h3>
       <Formik
         initialValues={{ oldPassword: '', password: '', confirmPassword: '' }}
+        validateOnMount={true}
         validate={({ oldPassword, password, confirmPassword }) => {
           const errors = {};
 

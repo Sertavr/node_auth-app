@@ -30,6 +30,12 @@ app.get('/', (req, res) => {
   res.send('Hello');
 });
 
+app.use((req, res, next) => {
+  res.status(404).json({
+    message: 'Route not found',
+  });
+});
+
 app.use(errorMiddleware);
 
 const options = {
@@ -41,6 +47,6 @@ const options = {
 //   console.log(`Server is running on http://localhost:${PORT}`);
 // });
 
-https.createServer(options, app).listen(3005, () => {
-  console.log('HTTPS server running on https://localhost:3005');
+https.createServer(options, app).listen(PORT, () => {
+  console.log(`HTTPS server running on https://localhost:${PORT}`);
 });

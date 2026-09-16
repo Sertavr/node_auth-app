@@ -9,7 +9,6 @@ import { AuthContext } from './components/AuthContext';
 import { LoginPage } from './pages/LoginPage';
 import { RegistrationPage } from './pages/RegistrationPage';
 import { RequireAuth } from './components/RequireAuth';
-import { UsersPage } from './pages/UsersPage';
 import { Loader } from './components/Loader.jsx';
 import { HomePage } from './pages/HomePage.jsx';
 import { usePageError } from './hooks/usePageError.js';
@@ -17,6 +16,7 @@ import { ProfilePage } from './pages/ProfilePage.jsx';
 import { ResetPassword } from './pages/ResetPassword.jsx';
 import { SetNewPasswordPage } from './pages/SetNewPasswordPage.jsx';
 import { NotFoundPage } from './pages/NotFoundPage.jsx';
+import { RequireNonAuth } from './components/RequireNonAuth.jsx';
 
 function App() {
   const navigate = useNavigate();
@@ -92,18 +92,19 @@ function App() {
         <section className="section">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="sign-up" element={<RegistrationPage />} />
+            <Route path="/" element={<RequireNonAuth />}>
+              <Route path="sign-up" element={<RegistrationPage />} />
+              <Route path="login" element={<LoginPage />} />
+              <Route
+                path="reset-password/:resetToken"
+                element={<SetNewPasswordPage />}
+              />
+              <Route path="reset-password" element={<ResetPassword />} />
+            </Route>
             <Route
               path="activate/:activationToken"
               element={<AccountActivationPage />}
             />
-            <Route
-              path="reset-password/:resetToken"
-              element={<SetNewPasswordPage />}
-            />
-
-            <Route path="login" element={<LoginPage />} />
-            <Route path="reset-password" element={<ResetPassword />} />
 
             <Route path="/" element={<RequireAuth />}>
               <Route path="profile/:userId" element={<ProfilePage />} />

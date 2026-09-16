@@ -1,10 +1,10 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from './AuthContext.jsx';
 import { Loader } from './Loader.jsx';
 
 export const RequireAuth = ({ children }) => {
-  const { isChecked, user, checkAuth } = useContext(AuthContext);
+  const { isChecked, user } = useContext(AuthContext);
   const location = useLocation();
 
   if (!isChecked) {

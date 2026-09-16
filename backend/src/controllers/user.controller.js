@@ -48,7 +48,14 @@ const getUserById = async (req, res) => {
 };
 
 const changePassword = async (req, res) => {
-  const { oldPassword, password } = req.body;
+  const { oldPassword, password, confirmPassword } = req.body;
+
+  if (password !== confirmPassword) {
+    throw ApiError.badRequest('Passwords do not match', {
+      password: 'Passwords do not match',
+    });
+  }
+
   const { refreshToken } = req.cookies;
   const userData = await jwtService.verifyRefresh(refreshToken);
 
@@ -66,7 +73,6 @@ const changePassword = async (req, res) => {
     throw ApiError.badRequest('Incorrect current password', {
       message: 'Incorrect current password',
     });
-    // return res.status(400).send({ message: 'Incorrect current password' });
   }
 
   const hashPass = await bcryptService.hashPassword(password);
@@ -106,16 +112,25 @@ const changeName = async (req, res) => {
 
 const changeEmail = async (req, res) => {
   const { userId } = req.params;
-  const { email, password } = req.body;
+  const { email, confirmEmail, password } = req.body;
   const { refreshToken } = req.cookies;
 
   await checkAuth(refreshToken);
 
   const errors = {
     email: validateEmail(email),
+    password: password ? null : 'Password is required!',
   };
 
-  if (errors.email) {
+  if (!confirmEmail) {
+    errors.confirmEmail = 'Email confirmation is required.';
+  }
+
+  if (confirmEmail !== email) {
+    errors.confirmEmail = 'Emails do not match.';
+  }
+
+  if (errors.email || errors.password || errors.confirmEmail) {
     throw ApiError.badRequest('Bad request', errors);
   }
 

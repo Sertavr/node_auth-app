@@ -24,8 +24,12 @@ const sendPassResetLink = ({ email }) => {
   return authClient.post('/auth/forgot-password', { email });
 };
 
-const resetPassword = ({ resetToken, password }) => {
-  return authClient.post('/auth/reset-password', { resetToken, password });
+const resetPassword = ({ resetToken, password, confirmation }) => {
+  return authClient.post('/auth/reset-password', {
+    resetToken,
+    password,
+    confirmation,
+  });
 };
 
 export const authService = {

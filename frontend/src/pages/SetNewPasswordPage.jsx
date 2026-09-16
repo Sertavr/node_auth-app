@@ -1,7 +1,7 @@
 import { Field, Form, Formik } from 'formik';
 import { validatePassword } from '../helper/helperFunctions';
 import { usePageError } from '../hooks/usePageError';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { authClient } from '../http/authClient';
 import { authService } from '../services/authService';
 import { useState } from 'react';
@@ -11,7 +11,6 @@ export const SetNewPasswordPage = () => {
   const [reseted, setReseted] = useState(false);
   const [error, setError] = usePageError('');
   const { resetToken } = useParams();
-  const navigate = useNavigate();
 
   if (reseted) {
     return (
@@ -53,7 +52,7 @@ export const SetNewPasswordPage = () => {
           formikHelpers.setSubmitting(true);
 
           authService
-            .resetPassword({ resetToken, password })
+            .resetPassword({ resetToken, password, confirmation })
             .then(() => setReseted(true))
             .catch(error => {
               if (error.message) {

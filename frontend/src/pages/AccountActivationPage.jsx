@@ -18,8 +18,7 @@ export const AccountActivationPage = () => {
         navigate(`/profile/${res.id}`);
       })
       .catch(error => {
-        // console.log(error.message)
-        setError(error.ressponse?.data?.message || `Wrong activation link`);
+        setError(error.response?.data?.message || `Wrong activation link`);
       })
       .finally(() => {
         setDone(true);

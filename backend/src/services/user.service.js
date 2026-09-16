@@ -61,7 +61,7 @@ const resetPassword = async ({ resetToken, password }) => {
     throw ApiError.badRequest('Incorrect reset link');
   }
 
-  if (user.resetTokenExpires < Date.now() || !user.resetToken) {
+  if (!user.resetToken || Date.now() > +user.resetTokenExpires) {
     throw ApiError.badRequest('Reset link expired. Request a new one');
   }
 
@@ -71,38 +71,6 @@ const resetPassword = async ({ resetToken, password }) => {
 
   await user.save();
 };
-
-// const register = async (email, password, userName) => {
-//   const activationToken = uuidv4();
-
-//   const cleanEmail = email.trim().toLowerCase(); // Очищаємо!
-
-//   console.log(`--- ДЕБАГ: Шукаємо email "${cleanEmail}" ---`);
-
-//   const existUser = await User.findOne({
-//     where: { email: cleanEmail },
-//     paranoid: false, // Відключаємо ігнорування видалених
-//     logging: console.log // 👈 Виведе точний SQL-запит у термінал
-//   });
-
-//   console.log('Знайдений юзер:', existUser ? existUser.id : null);
-
-//   if (existUser) {
-//     throw ApiError.badRequest('User already exist', {
-//       email: 'User already exist',
-//     });
-//   }
-
-//   // Зберігаємо теж чистий cleanEmail
-//   await User.create({
-//     email: cleanEmail,
-//     password,
-//     userName,
-//     activationToken
-//   });
-
-//   await emailService.sendActivationEmail(cleanEmail, activationToken);
-// };
 
 const userService = {
   getUserById,

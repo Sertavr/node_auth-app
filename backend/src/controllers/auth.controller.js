@@ -72,7 +72,7 @@ const registration = async (req, res) => {
     password: validatePassword(password),
   };
 
-  if (errors.email || errors.password) {
+  if (errors.email || errors.password || errors.name) {
     throw ApiError.badRequest('Bad request', errors);
   }
 
@@ -109,9 +109,13 @@ const login = async (req, res) => {
 
   const user = await User.findOne({ where: { email } });
 
+  if (!user) {
+    throw ApiError.badRequest('Incorrect email or password');
+  }
+
   const isValidPass = await bcrypt.compare(password, user.password);
 
-  if (!user || !isValidPass) {
+  if (!isValidPass) {
     throw ApiError.badRequest('Incorrect email or password');
   }
 
@@ -172,12 +176,20 @@ const sendPassResetLink = async (req, res) => {
 };
 
 const resetPassword = async (req, res) => {
-  const { resetToken, password } = req.body;
+  const { resetToken, password, confirmation } = req.body;
   const errors = {
     password: validatePassword(password),
   };
 
-  if (errors.password) {
+  if (!confirmation) {
+    errors.confirmation = 'Password confirmation is required.';
+  }
+
+  if (confirmation && confirmation !== password) {
+    errors.confirmation = 'Passwords do not match.';
+  }
+
+  if (errors.password || errors.confirmation) {
     throw ApiError.badRequest('Bad request', errors);
   }
 

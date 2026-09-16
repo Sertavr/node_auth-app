@@ -17,7 +17,16 @@ userRouter.post(
   catchError(userController.changePassword),
 );
 
-userRouter.patch('/change-name/:userId', userController.changeName);
-userRouter.patch('/change-email/:userId', userController.changeEmail);
+userRouter.patch(
+  '/change-name/:userId',
+  authMiddleware,
+  catchError(userController.changeName),
+);
+
+userRouter.patch(
+  '/change-email/:userId',
+  authMiddleware,
+  catchError(userController.changeEmail),
+);
 
 module.exports = { userRouter };

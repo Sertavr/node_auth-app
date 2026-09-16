@@ -4,8 +4,8 @@ function getAll() {
   return httpClient.get('/users');
 }
 
-const changePassword = ({ oldPassword, password }) => {
-  return httpClient.post('/change', { oldPassword, password });
+const changePassword = ({ oldPassword, password, confirmPassword }) => {
+  return httpClient.post('/change', { oldPassword, password, confirmPassword });
 };
 
 const getUserOne = userId => {
@@ -16,8 +16,12 @@ const changeName = (userId, { userName }) => {
   return httpClient.patch(`/change-name/${userId}`, { userName });
 };
 
-const changeEmail = (userId, { email, password }) => {
-  return httpClient.patch(`/change-email/${userId}`, { email, password });
+const changeEmail = (userId, { email, confirmEmail, password }) => {
+  return httpClient.patch(`/change-email/${userId}`, {
+    email,
+    confirmEmail,
+    password,
+  });
 };
 
 export const userService = {

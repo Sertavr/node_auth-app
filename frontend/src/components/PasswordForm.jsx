@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { usePageError } from '../hooks/usePageError';
 import { userService } from '../services/userService';
 import { Field, Form, Formik } from 'formik';
@@ -32,9 +31,16 @@ export const PasswordForm = ({ onSuccess }) => {
 
           return errors;
         }}
-        onSubmit={async ({ oldPassword, password }, helpers) => {
+        onSubmit={async (
+          { oldPassword, password, confirmPassword },
+          helpers,
+        ) => {
           try {
-            await userService.changePassword({ oldPassword, password });
+            await userService.changePassword({
+              oldPassword,
+              password,
+              confirmPassword,
+            });
 
             onSuccess('Password has been successfully updated!');
             helpers.resetForm();

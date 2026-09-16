@@ -1,12 +1,6 @@
 const { ApiError } = require('../exception/api.error');
 
 const errorMiddleware = (error, req, res, next) => {
-  console.log('--- ПОМИЛКА ---');
-  console.log(error);
-  console.log('Повідомлення:', error.message);
-
-  // console.log(error instanceof ApiError)
-
   if (error instanceof ApiError) {
     return res
       .status(error.status)

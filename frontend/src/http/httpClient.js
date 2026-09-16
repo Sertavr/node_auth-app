@@ -24,7 +24,7 @@ function onResponseSuccess(res) {
 async function onResponseError(error) {
   const originalRequest = error.config;
 
-  if (error.response.status !== 401) {
+  if (error.response && error.response.status !== 401) {
     throw error;
   }
 

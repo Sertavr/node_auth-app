@@ -5,7 +5,6 @@ import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
 import { usePageError } from '../hooks/usePageError';
 import cn from 'classnames';
-import { accessTokenService } from '../services/accessTokenService';
 
 export const EmailForm = ({ id, onSuccess }) => {
   const [error, setError] = usePageError('');
@@ -36,14 +35,13 @@ export const EmailForm = ({ id, onSuccess }) => {
 
           return errors;
         }}
-        onSubmit={async ({ email, password }, formikHelpers) => {
+        onSubmit={async ({ email, confirmEmail, password }, formikHelpers) => {
           try {
             const { user, accessToken } = await userService.changeEmail(id, {
               email,
+              confirmEmail,
               password,
             });
-
-            // accessTokenService.save(accessToken);
 
             await checkAuth();
 

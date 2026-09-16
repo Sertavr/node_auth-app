@@ -2,7 +2,6 @@ import { Form, Formik, Field } from 'formik';
 import { usePageError } from '../hooks/usePageError';
 import { validateEmail } from '../helper/helperFunctions';
 import cn from 'classnames';
-import { userService } from '../services/userService';
 import { authService } from '../services/authService';
 import { useState } from 'react';
 
@@ -37,6 +36,7 @@ export const ResetPassword = () => {
             .sendPassResetLink({ email })
             .then(() => setSendedEmail(true))
             .catch(error => {
+              console.log(error);
               if (error.message) {
                 setError(error.message);
               }

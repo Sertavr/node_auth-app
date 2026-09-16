@@ -1,10 +1,6 @@
-import { Formik, Form, Field } from 'formik';
 import cn from 'classnames';
 import { AuthContext } from '../components/AuthContext.jsx';
 import { useContext, useEffect, useState } from 'react';
-import { userService } from '../services/userService.js';
-import { useParams } from 'react-router-dom';
-import { usePageError } from '../hooks/usePageError.js';
 import { PasswordForm } from '../components/PasswordForm.jsx';
 import { NameForm } from '../components/NameForm.jsx';
 import { EmailForm } from '../components/EmailForm.jsx';
@@ -13,7 +9,6 @@ export const ProfilePage = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [change, setChange] = useState('');
   const { user } = useContext(AuthContext);
-  // const { userId } = useParams();
 
   const { userName, email, id } = user || {};
 

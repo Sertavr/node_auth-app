@@ -1,3 +1,5 @@
+certs/
+
 # IDE
 .idea
 .vscode

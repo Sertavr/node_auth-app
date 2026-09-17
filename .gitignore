@@ -1,3 +1,10 @@
+**/certs/
+**/certs/
+*.key
+*.cert
+*.pem
+*.crt
+
 .idea
 .vscode
 build

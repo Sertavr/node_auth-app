@@ -35,9 +35,6 @@
   -install the dependencies:
     npm install
 
-  -run the frontend:
-    npm start
-
 5. In a separate terminal, navigate to the "beckend" directory from the repository root.
     cd ./beckend
   
@@ -46,6 +43,10 @@
 
   -execute the command to quickly create tables in the database:
     node ./setup.js
+  
+6. To launch the frontend and backend simultaneously from the repository root:
+  npm run dev
 
-  -run the beckend:
-    npm start
+7. To run the frontend and backend separately from the repository root:
+  npm run start:frontend
+  npm run start:backend

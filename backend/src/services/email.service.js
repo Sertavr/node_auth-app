@@ -20,6 +20,7 @@ const send = async ({ email, subject, html }) => {
 
     return info;
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error('Error while sending mail:', err);
   }
 };

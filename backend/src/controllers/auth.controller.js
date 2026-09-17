@@ -121,6 +121,7 @@ const login = async (req, res) => {
 
   if (user.activationToken) {
     throw ApiError.badRequest(
+      // eslint-disable-next-line max-len
       'Your account is not activated. Please check your email and follow the activation link to complete registration.',
     );
   }

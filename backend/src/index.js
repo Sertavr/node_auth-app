@@ -43,10 +43,7 @@ const options = {
   cert: fs.readFileSync('./certs/server.cert'),
 };
 
-// app.listen(3005, () => {
-//   console.log(`Server is running on http://localhost:${PORT}`);
-// });
-
 https.createServer(options, app).listen(PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(`HTTPS server running on https://localhost:${PORT}`);
 });
